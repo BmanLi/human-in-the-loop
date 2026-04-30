@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Human in the Loop &mdash; Personal AI Mentorship</title>
-  <meta name="description" content="AI is a personal journey. One-on-one mentorship to help you find your place in it — your AI journey starts here." />
+  <meta name="description" content="AI is a personal journey. One-on-one mentorship to help you find your place in it. Your AI journey starts here." />
  
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:title"       content="Human in the Loop" />
-  <meta property="og:description" content="AI is a personal journey. One-on-one mentorship to help you find your place in it — your AI journey starts here." />
+  <meta property="og:description" content="AI is a personal journey. One-on-one mentorship to help you find your place in it." />
   <meta property="og:url"         content="https://human-in-theloop.netlify.app" />
   <meta property="og:image"       content="https://human-in-theloop.netlify.app/og-image.png" />
  
   <!-- Twitter / X Card -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Human in the Loop" />
-  <meta name="twitter:description" content="AI is a personal journey. One-on-one mentorship to help you find your place in it — your AI journey starts here." />
+  <meta name="twitter:description" content="AI is a personal journey. One-on-one mentorship to help you find your place in it." />
   <meta name="twitter:image"       content="https://human-in-theloop.netlify.app/og-image.png" />
  
   <!-- Google Analytics -->
@@ -36,17 +36,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
  
     :root {
-      --bg:  #04040c;
-      --v:   #8b5cf6;
-      --vd:  #5b21b6;
-      --b:   #38bdf8;
-      --w:   #ffffff;
-      --mu:  rgba(255,255,255,0.44);
-      --dm:  rgba(255,255,255,0.18);
+      --bg:    #04040c;
+      --bg2:   #0d0d1a;
+      --v:     #8b5cf6;
+      --vd:    #5b21b6;
+      --b:     #38bdf8;
+      --w:     #ffffff;
+      --mu:    rgba(255,255,255,0.44);
+      --dm:    rgba(255,255,255,0.18);
     }
  
-    html, body { height: 100%; background: var(--bg); }
-    body { font-family: 'DM Sans', sans-serif; color: var(--w); overflow: hidden; }
+    html, body { background: var(--bg); }
+    body { font-family: 'DM Sans', sans-serif; color: var(--w); overflow-x: hidden; }
  
     body::before {
       content: '';
@@ -74,6 +75,7 @@
     .g4 { font-size: clamp(55px, 8vw,110px); top: 68%; right: 5%; }
     .g5 { font-size: clamp(65px,10vw,130px); top: 82%; left:  8%; }
  
+    /* HERO */
     .stage {
       position: relative; z-index: 10; height: 100vh;
       display: flex; align-items: center; justify-content: center; padding: 0 6vw;
@@ -100,6 +102,7 @@
       line-height: 1.0; letter-spacing: -1.5px; margin-bottom: 20px;
       opacity: 0; animation: up 0.9s ease 0.12s forwards;
     }
+ 
     .grad {
       background: linear-gradient(118deg, #ddd6fe 0%, #818cf8 40%, #38bdf8 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -223,6 +226,145 @@
       50%      { transform: scale(1.04); opacity: 1;    }
     }
  
+    /* SCROLL INDICATOR */
+    .scroll-hint {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      opacity: 0; animation: up 1s ease 1.2s forwards;
+      z-index: 20; cursor: pointer;
+    }
+    .scroll-hint span {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); font-weight: 500;
+    }
+    .scroll-hint svg { animation: bounce 2s ease-in-out infinite; }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); opacity: 0.3; }
+      50%      { transform: translateY(6px); opacity: 0.7; }
+    }
+ 
+    /* SCROLL SECTIONS */
+    .scroll-sections {
+      position: relative; z-index: 10;
+      background: var(--bg2);
+      border-top: 1px solid rgba(139,92,246,0.12);
+    }
+ 
+    .scroll-inner {
+      max-width: 620px; margin: 0 auto;
+      padding: 80px 6vw 100px;
+      display: flex; flex-direction: column;
+    }
+ 
+    .si-rule {
+      width: 100%; height: 1px;
+      background: rgba(255,255,255,0.055);
+      margin: 52px 0;
+    }
+ 
+    .si-block { display: flex; flex-direction: column; gap: 16px; }
+ 
+    .si-h {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: clamp(21px, 2.2vw, 29px);
+      line-height: 1.28; letter-spacing: -0.4px;
+      color: rgba(255,255,255,0.88);
+    }
+ 
+    .si-p {
+      font-size: clamp(15px, 1.3vw, 17px); font-weight: 300;
+      line-height: 1.82; color: rgba(255,255,255,0.52);
+    }
+ 
+    /* Numbered outcome list */
+    .outcome-list { display: flex; flex-direction: column; gap: 24px; margin-top: 6px; }
+ 
+    .outcome-item { display: flex; align-items: flex-start; gap: 18px; }
+ 
+    .oi-num {
+      font-family: 'Lora', serif; font-weight: 700; font-size: 12px;
+      letter-spacing: 1px; color: rgba(139,92,246,0.65);
+      padding-top: 3px; flex-shrink: 0; width: 22px;
+    }
+ 
+    .oi-text {
+      font-size: clamp(15px, 1.3vw, 17px); font-weight: 300;
+      color: rgba(255,255,255,0.65); line-height: 1.7;
+    }
+ 
+    /* Story cards */
+    .story-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+ 
+    .story-card {
+      border-left: 2px solid rgba(139,92,246,0.35);
+      background: rgba(255,255,255,0.022);
+      border-radius: 0 10px 10px 0;
+      padding: 15px 20px;
+      font-size: clamp(14px, 1.15vw, 15px); font-weight: 300;
+      color: rgba(255,255,255,0.62); line-height: 1.78;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .story-card:hover {
+      border-left-color: rgba(139,92,246,0.75);
+      background: rgba(139,92,246,0.04);
+    }
+ 
+    /* Early access */
+    .early-access {
+      display: flex; flex-direction: column; align-items: flex-start;
+      gap: 12px;
+      background: rgba(139,92,246,0.05);
+      border: 1px solid rgba(139,92,246,0.16);
+      border-radius: 14px; padding: 30px 32px;
+    }
+ 
+    .ea-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.28);
+      border-radius: 999px; padding: 5px 14px;
+      font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(139,92,246,0.82);
+    }
+ 
+    .ea-badge::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(139,92,246,0.88);
+      box-shadow: 0 0 5px rgba(139,92,246,0.7);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
+ 
+    .early-access h4 {
+      font-family: 'Lora', serif; font-weight: 700;
+      font-size: clamp(18px, 1.8vw, 22px); letter-spacing: -0.3px;
+      color: rgba(255,255,255,0.88); line-height: 1.3;
+    }
+ 
+    .early-access p {
+      font-size: 14px; font-weight: 300;
+      color: rgba(255,255,255,0.42); line-height: 1.78;
+    }
+ 
+    /* Closing CTA */
+    .closing-cta {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 20px; padding-top: 8px;
+    }
+ 
+    .closing-cta h3 {
+      font-family: 'Lora', serif; font-weight: 700;
+      font-size: clamp(28px, 3.5vw, 44px); letter-spacing: -1.5px;
+      color: var(--w); line-height: 1.1;
+    }
+ 
+    .closing-cta > p {
+      font-size: 16px; font-weight: 300;
+      color: rgba(255,255,255,0.42); line-height: 1.7; max-width: 380px;
+    }
+ 
+    .closing-cta .cta-wrap { max-width: 420px; width: 100%; }
+ 
+    /* SUCCESS */
     .success {
       position: fixed; inset: 0; z-index: 50;
       display: flex; align-items: center; justify-content: center;
@@ -253,7 +395,7 @@
       50%      { box-shadow: 0 0 0 20px rgba(139,92,246,0);  }
     }
     .s-h {
-      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-family: 'Lora', serif; font-weight: 700;
       font-size: clamp(30px,5vw,50px); letter-spacing: -1.5px;
       margin-bottom: 12px; max-width: 480px; opacity: 0;
     }
@@ -265,6 +407,7 @@
     .s-next { font-size: 13px; color: var(--dm); font-weight: 400; letter-spacing: 0.4px; line-height: 1.6; max-width: 300px; margin-bottom: 28px; opacity: 0; }
     .s-sig { font-size: 16px; color: rgba(255,255,255,0.35); font-style: italic; opacity: 0; }
  
+    /* PRIVACY */
     .privacy-modal {
       position: fixed; inset: 0; z-index: 60;
       display: flex; align-items: center; justify-content: center; padding: 24px;
@@ -277,7 +420,7 @@
       border-radius: 16px; padding: 40px; max-width: 520px; width: 100%;
       position: relative; max-height: 80vh; overflow-y: auto;
     }
-    .privacy-box h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 22px; margin-bottom: 20px; color: var(--w); }
+    .privacy-box h2 { font-family: 'Lora', serif; font-weight: 700; font-size: 22px; margin-bottom: 20px; color: var(--w); }
     .privacy-box p { font-size: 14px; color: var(--mu); line-height: 1.75; margin-bottom: 14px; font-weight: 300; }
     .privacy-box strong { color: rgba(255,255,255,0.7); font-weight: 500; }
     .privacy-close {
@@ -292,8 +435,7 @@
     }
  
     @media (max-width: 780px) {
-      body { overflow-y: auto; }
-      .stage { min-height: 100vh; height: auto; padding: 100px 0 50px; gap: 0; align-items: start; }
+      .stage { min-height: 100vh; height: auto; padding: 100px 0 50px; align-items: start; }
       .layout { grid-template-columns: 1fr; gap: 0; }
       .visual { order: -1; margin-bottom: -10px; }
       .loop-visual { width: 200px; height: 200px; }
@@ -310,6 +452,10 @@
       .rule { margin-left: auto; margin-right: auto; }
       .cta-wrap { max-width: 100%; }
       .g4, .g5 { display: none; }
+      .scroll-inner { padding: 60px 24px 80px; }
+      .si-rule { margin: 40px 0; }
+      .early-access { padding: 24px 22px; }
+      .closing-cta { align-items: stretch; }
     }
  
     @media (max-width: 480px) {
@@ -331,9 +477,9 @@
   <span class="gw g5">Start</span>
 </div>
  
+<!-- HERO -->
 <div class="stage">
   <div class="layout">
- 
     <div class="content">
       <p class="eyebrow">Human in the Loop</p>
       <h1 class="hl"><span class="hl-outline">Personal AI</span><br><span class="hl-outline">Mentorship</span></h1>
@@ -346,7 +492,7 @@
             <button class="form-btn" id="go" type="submit">I'm in &nbsp;&rarr;</button>
           </div>
         </form>
-        <p class="proof">No pitch. Just a human helping another human start.</p>
+        <p class="proof" style="color:rgba(255,255,255,0.55); font-size:13px; letter-spacing:0.3px;">Just a human helping another human start.</p>
         <p class="privacy-link"><a href="#" onclick="document.getElementById('privacy').classList.add('on');return false;">Privacy Policy</a></p>
       </div>
     </div>
@@ -369,10 +515,94 @@
         </div>
       </div>
     </div>
+  </div>
  
+  <!-- Scroll indicator -->
+  <div class="scroll-hint" onclick="document.querySelector('.scroll-sections').scrollIntoView({behavior:'smooth'})">
+    <span>Learn more</span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 3v10M3 9l5 5 5-5" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
   </div>
 </div>
  
+<!-- SCROLL SECTIONS -->
+<div class="scroll-sections">
+<div class="scroll-inner">
+ 
+  <div class="si-block">
+    <h2 class="si-h">This isn't a course. It's a conversation.</h2>
+    <p class="si-p">Most AI content tells you what to learn. I start by asking what you actually want to do. Then I help you build something around it that fits your life and your work.</p>
+  </div>
+ 
+  <div class="si-rule"></div>
+ 
+  <div class="si-block">
+    <h2 class="si-h">I'm a Product Manager who uses AI every day.</h2>
+    <p class="si-p">At work, at home, in every part of my life. I've spent years turning complicated problems into simple starting points. I'm not here to overwhelm you with every tool that dropped this week. I'm here to find the one thing that actually works for you.</p>
+  </div>
+ 
+  <div class="si-rule"></div>
+ 
+  <div class="si-block">
+    <p class="si-p" style="color:rgba(255,255,255,0.35); font-size:13px; letter-spacing:0.3px; font-style:italic;">One conversation. Here's what you walk away with:</p>
+    <div class="outcome-list">
+      <div class="outcome-item">
+        <span class="oi-num">01</span>
+        <span class="oi-text">A clear picture of where AI fits in your specific life and work</span>
+      </div>
+      <div class="outcome-item">
+        <span class="oi-num">02</span>
+        <span class="oi-text">A shortlist of tools that are actually right for you. Nothing more.</span>
+      </div>
+      <div class="outcome-item">
+        <span class="oi-num">03</span>
+        <span class="oi-text">A system you can repeat so you keep going long after we talk</span>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="si-rule"></div>
+ 
+  <div class="si-block">
+    <h2 class="si-h">AI looks different for everyone. Here's what I've seen:</h2>
+    <div class="story-grid">
+      <div class="story-card">A senior leader went from never touching AI to sharing wins with their whole company.</div>
+      <div class="story-card">An operations manager avoided months of trial and error by finding out early what wouldn't work for their situation.</div>
+      <div class="story-card">An executive brought a personal musical idea to life as a gift for their family. Something they never could have expressed before.</div>
+      <div class="story-card">An engineer now has a clear mental model of AI and uses it to learn faster and ship work quicker.</div>
+      <div class="story-card">An L&D professional stopped skipping to answers and started thinking with AI instead. Their team gets better outcomes because of it.</div>
+    </div>
+  </div>
+ 
+  <div class="si-rule"></div>
+ 
+  <div class="early-access">
+    <span class="ea-badge">Early Access</span>
+    <h4>I only take on a few people at a time.</h4>
+    <p>That's by design. Every person I work with gets a real conversation and real attention. Not a template. Not a bot. That's just how this works. Early access means you get in before the waitlist forms.</p>
+  </div>
+ 
+  <div class="si-rule"></div>
+ 
+  <div class="closing-cta">
+    <h3>Sounds like something you need?</h3>
+    <p>Leave your email. I'll take it from there.</p>
+    <div class="cta-wrap">
+      <form action="https://script.google.com/macros/s/AKfycbyORBOTpdUJHEqQbJ1TzYyg1y4LhEXRjPkEPspJmxuRvvFSsD4ulLOc7jiFPFakBCZQgg/exec" method="POST" onsubmit="send(event)">
+        <div class="form-pill">
+          <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+          <button class="form-btn" type="submit">I'm in &nbsp;&rarr;</button>
+        </div>
+      </form>
+      <p class="privacy-link" style="text-align:center; margin-top:12px;"><a href="#" onclick="document.getElementById('privacy').classList.add('on');return false;">Privacy Policy</a></p>
+    </div>
+  </div>
+ 
+</div>
+</div>
+ 
+<!-- PRIVACY MODAL -->
 <div class="privacy-modal" id="privacy" onclick="if(event.target===this)this.classList.remove('on')">
   <div class="privacy-box">
     <button class="privacy-close" onclick="document.getElementById('privacy').classList.remove('on')">&times;</button>
@@ -387,12 +617,13 @@
   </div>
 </div>
  
+<!-- SUCCESS STATE -->
 <div class="success" id="success">
   <div class="s-ring">&#10003;</div>
   <h2 class="s-h">You're in the loop.<br><span class="grad">Let's begin.</span></h2>
-  <p class="s-sub">I'll be reaching out personally &mdash; this isn't a newsletter, it's a conversation.</p>
+  <p class="s-sub">I'll be reaching out personally. This isn't a newsletter, it's a conversation.</p>
   <p class="s-next">Keep an eye on your inbox. Your AI journey starts here.</p>
-  <p class="s-sig">&mdash; Brian</p>
+  <p class="s-sig">Brian</p>
 </div>
  
 <script>
@@ -440,14 +671,14 @@ document.addEventListener('mousemove', e => {
   mouse.x = e.clientX; mouse.y = e.clientY;
   const nx = e.clientX/innerWidth-.5, ny = e.clientY/innerHeight-.5;
   gws.forEach((w,i) => { const s=(i+1)*5; w.style.transform=`translate(${nx*s}px,${ny*s}px)`; });
-  loopVisual.style.transform = `translate(${nx*14}px,${ny*12}px)`;
+  if (loopVisual) loopVisual.style.transform = `translate(${nx*14}px,${ny*12}px)`;
 });
  
 function generateId() { return 'hitl-'+Date.now()+'-'+Math.random().toString(36).slice(2,9); }
  
 async function send(e) {
   e.preventDefault();
-  const btn = document.getElementById('go');
+  const btn = e.target.querySelector('button[type="submit"]');
   const email = e.target.querySelector('input[type="email"]').value.trim();
   btn.disabled = true; btn.textContent = 'Sending…';
   try {
