@@ -168,6 +168,13 @@
     }
     .privacy-link a:hover { color: var(--mu); border-color: rgba(255,255,255,0.3); }
 
+    /* Honeypot: invisible to humans, visible to dumb bots that fill all inputs */
+    .hp {
+      position: absolute !important; left: -9999px !important;
+      width: 1px !important; height: 1px !important;
+      opacity: 0 !important; pointer-events: none !important;
+    }
+
     .form-error {
       font-size: 13px; font-weight: 400; line-height: 1.5;
       margin-top: 10px; padding: 0 6px;
@@ -490,6 +497,7 @@
       <p class="byline"><span class="byline-dot" aria-hidden="true"></span><strong>Brian Li</strong> · Canada</p>
       <div class="cta-wrap">
         <form id="form" novalidate>
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div class="form-pill">
             <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
             <button class="form-btn" id="go" type="submit">I'm in &nbsp;&rarr;</button>
@@ -634,6 +642,7 @@
     <p>Leave your email. I'll take it from there.</p>
     <div class="cta-wrap">
       <form id="form-closing" novalidate>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <div class="form-pill">
           <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
           <button class="form-btn" type="submit">I'm in &nbsp;&rarr;</button>
@@ -726,6 +735,26 @@ document.addEventListener('mousemove', e => {
 
 // ── Form submission ───────────────────────────────────────────────────────────
 const FORM_ACTION = 'https://script.google.com/macros/s/AKfycbyORBOTpdUJHEqQbJ1TzYyg1y4LhEXRjPkEPspJmxuRvvFSsD4ulLOc7jiFPFakBCZQgg/exec';
+
+// Bot-signal capture: track page load time, evaluate signals on submit
+const PAGE_LOAD_TIME = Date.now();
+const BOT_UA_RE = /python|curl|wget|java|go-http|node-fetch|axios|okhttp|libwww|headless|phantomjs|bot|spider|crawler|scraper/i;
+
+function evaluateBotSignals(form) {
+  const honeypot   = (form.querySelector('.hp')?.value || '').trim();
+  const fillTimeMs = Date.now() - PAGE_LOAD_TIME;
+  const userAgent  = navigator.userAgent || '';
+  const referrer   = document.referrer || '';
+  const reasons    = [];
+  let verdict      = 'human';
+
+  if (honeypot)                   { verdict = 'bot';        reasons.push('honeypot_filled'); }
+  if (BOT_UA_RE.test(userAgent))  { verdict = 'bot';        reasons.push('bot_user_agent'); }
+  if (!userAgent)                 { verdict = 'likely_bot'; reasons.push('no_user_agent'); }
+  if (fillTimeMs < 3000 && verdict === 'human') { verdict = 'likely_bot'; reasons.push('fast_submit_<3s'); }
+
+  return { honeypot: honeypot ? 'filled' : '', fillTimeMs, userAgent, referrer, verdict, reasons: reasons.join('|') };
+}
 
 // Email validation: stricter regex, disposable blocklist, typo suggestions
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -836,6 +865,9 @@ async function send(e) {
 
   btn.disabled = true; btn.textContent = 'Sending…';
 
+  // Capture bot signals NOW (at submit time), before any async work
+  const botSignals = evaluateBotSignals(form);
+
   // Fire network calls in the background — don't block the success animation
   (async () => {
     let geo = {};
@@ -845,7 +877,11 @@ async function send(e) {
       geo = { city: d.city, region: d.region, country: d.country_name };
     } catch(_) {}
     try {
-      await fetch(FORM_ACTION, { method:'POST', mode:'no-cors', body: JSON.stringify({ formId: generateId(), email, ...geo }), headers: {'Content-Type':'text/plain'} });
+      await fetch(FORM_ACTION, {
+        method: 'POST', mode: 'no-cors',
+        body: JSON.stringify({ formId: generateId(), email, ...geo, ...botSignals }),
+        headers: { 'Content-Type': 'text/plain' }
+      });
     } catch(_) {}
   })();
 
