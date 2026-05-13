@@ -118,6 +118,19 @@
     }
     .sub strong { color: rgba(255,255,255,0.82); font-weight: 500; }
 
+    .byline {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 400; letter-spacing: 0.4px;
+      color: rgba(255,255,255,0.55); margin-bottom: 22px;
+      opacity: 0; animation: up 0.9s ease 0.26s forwards;
+    }
+    .byline-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--v), var(--b));
+      box-shadow: 0 0 6px rgba(139,92,246,0.6);
+    }
+    .byline strong { color: rgba(255,255,255,0.82); font-weight: 500; }
+
     .cta-wrap { width: 100%; max-width: 400px; opacity: 0; animation: up 0.9s ease 0.30s forwards; }
 
     .form-pill {
@@ -154,6 +167,20 @@
       transition: color 0.2s, border-color 0.2s;
     }
     .privacy-link a:hover { color: var(--mu); border-color: rgba(255,255,255,0.3); }
+
+    .form-error {
+      font-size: 13px; font-weight: 400; line-height: 1.5;
+      margin-top: 10px; padding: 0 6px;
+      color: #fca5a5; display: none;
+    }
+    .form-error.visible { display: block; }
+    .form-error.suggestion { color: rgba(255,255,255,0.62); }
+    .form-error .suggest-btn {
+      background: none; border: none; padding: 0;
+      color: var(--v); font: inherit; cursor: pointer;
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+    .form-error .suggest-btn:hover { color: #a78bfa; }
 
     .visual { display: flex; align-items: center; justify-content: center; opacity: 0; animation: up 1s ease 0.28s forwards; }
     .loop-visual {
@@ -221,6 +248,85 @@
 
     .si-rule { width: 100%; height: 1px; background: rgba(255,255,255,0.055); margin: 52px 0; }
     .si-block { display: flex; flex-direction: column; gap: 16px; }
+
+    .about-block {
+      display: grid; grid-template-columns: 96px 1fr; gap: 28px; align-items: start;
+    }
+    .about-portrait {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(139,92,246,0.22), rgba(56,189,248,0.08) 60%, transparent);
+      border: 1.5px solid rgba(139,92,246,0.4);
+      box-shadow: 0 0 18px rgba(139,92,246,0.18), inset 0 0 12px rgba(139,92,246,0.1);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
+    }
+    .about-portrait img { width: 100%; height: 100%; object-fit: cover; }
+    .about-portrait svg { width: 44px; height: 50px; opacity: 0.65; }
+    .about-text { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+    .about-text .si-h { margin-bottom: 2px; }
+    .about-text .si-p { margin: 0; }
+    .about-links {
+      margin-top: 6px; font-size: 14px; font-weight: 500;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .about-links a {
+      color: rgba(167,139,250,0.95); text-decoration: none;
+      border-bottom: 1px solid rgba(139,92,246,0.3);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .about-links a:hover { color: #ddd6fe; border-color: rgba(221,214,254,0.5); }
+    .about-sep { color: rgba(255,255,255,0.2); }
+
+    @media (max-width: 560px) {
+      .about-block { grid-template-columns: 1fr; gap: 18px; }
+      .about-portrait { width: 80px; height: 80px; }
+      .about-portrait svg { width: 36px; height: 41px; }
+    }
+
+    .offerings {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      margin-top: 8px;
+    }
+    .offering {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(139,92,246,0.18);
+      border-radius: 12px; padding: 22px 22px 20px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color 0.25s, background 0.25s, transform 0.25s;
+    }
+    .offering:hover {
+      border-color: rgba(139,92,246,0.4);
+      background: rgba(139,92,246,0.05);
+      transform: translateY(-2px);
+    }
+    .offering-label {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: 'Syne', sans-serif;
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(167,139,250,0.85);
+    }
+    .offering-label::before {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--v), var(--b));
+      box-shadow: 0 0 5px rgba(139,92,246,0.6);
+    }
+    .offering-h {
+      font-family: 'Lora', serif; font-weight: 600;
+      font-size: 18px; line-height: 1.3; color: rgba(255,255,255,0.9);
+      letter-spacing: -0.2px;
+    }
+    .offering-p {
+      font-size: 14px; font-weight: 300; line-height: 1.7;
+      color: rgba(255,255,255,0.58);
+    }
+    .offering-tags {
+      font-size: 12px; color: rgba(255,255,255,0.4);
+      margin-top: 2px;
+    }
+    @media (max-width: 560px) {
+      .offerings { grid-template-columns: 1fr; }
+    }
+
     .si-h {
       font-family: 'Lora', serif; font-weight: 600;
       font-size: clamp(21px, 2.2vw, 29px);
@@ -381,12 +487,14 @@
       <h1 class="hl"><span class="hl-outline">Personal AI</span><br><span class="hl-outline">Mentorship</span></h1>
       <div class="rule"></div>
       <p class="sub">You're not behind. <span class="grad">AI</span> just needs a starting point<br><strong>and I'll help you find <span class="grad">yours.</span></strong></p>
+      <p class="byline"><span class="byline-dot" aria-hidden="true"></span><strong>Brian Li</strong> · Canada</p>
       <div class="cta-wrap">
-        <form id="form">
+        <form id="form" novalidate>
           <div class="form-pill">
             <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
             <button class="form-btn" id="go" type="submit">I'm in &nbsp;&rarr;</button>
           </div>
+          <p class="form-error" aria-live="polite"></p>
         </form>
         <p class="proof">Just a human helping another human start.</p>
         <p class="privacy-link"><a href="#" onclick="document.getElementById('privacy').classList.add('on');return false;">Privacy Policy</a></p>
@@ -432,15 +540,56 @@
 
   <div class="si-rule"></div>
 
-  <div class="si-block">
-    <h2 class="si-h">I'm a Product Manager who uses AI every day.</h2>
-    <p class="si-p">At work, at home, in every part of my life. I've spent years turning complicated problems into simple starting points. I'm not here to overwhelm you with every tool that dropped this week. I'm here to find the one thing that actually works for you.</p>
+  <div class="si-block about-block">
+    <div class="about-portrait">
+      <!-- TODO: replace with real photo: <img src="brian.jpg" alt="Brian Li" /> -->
+      <svg viewBox="0 0 72 82" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ddd6fe"/>
+            <stop offset="100%" stop-color="#818cf8"/>
+          </linearGradient>
+        </defs>
+        <circle cx="36" cy="20" r="14" stroke="url(#ag)" stroke-width="1.5"/>
+        <path d="M 3 82 C 3 56 17 44 36 44 C 55 44 69 56 69 82" stroke="url(#ag)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="about-text">
+      <h2 class="si-h">Hi, I'm Brian.</h2>
+      <p class="si-p">I'm a Product Manager based in Canada. I spend my days turning messy problems into clear next steps — and I've spent the last few years doing the same with AI, at work and at home.</p>
+      <p class="si-p">Here's what I've learned: most people don't need more tutorials. They need someone to sit with them, listen to what they're actually trying to do, and help them find where AI fits. One real conversation beats fifty YouTube videos.</p>
+      <p class="si-p">I'm not here to sell you on every tool that dropped this week. I'm here to find the one thing that fits your life — and help you actually use it.</p>
+      <p class="about-links">
+        <a href="https://www.linkedin.com/in/brianscli/" target="_blank" rel="noopener noreferrer">LinkedIn &rarr;</a>
+        <span class="about-sep" aria-hidden="true">·</span>
+        <a href="mailto:hello@humanintheloop.site">Email</a>
+      </p>
+    </div>
   </div>
 
   <div class="si-rule"></div>
 
   <div class="si-block">
-    <p class="si-p" style="color:rgba(255,255,255,0.35); font-size:13px; letter-spacing:0.3px; font-style:italic;">One conversation. Here's what you walk away with:</p>
+    <h2 class="si-h">Two ways I can help.</h2>
+    <p class="si-p">Depending on what you need, we can go in one of two directions — or both.</p>
+    <div class="offerings">
+      <div class="offering">
+        <span class="offering-label">Mentor you</span>
+        <h3 class="offering-h">Teach you to use AI</h3>
+        <p class="offering-p">We sit together and figure out where AI fits in your specific work and life. You leave with tools you'll actually use and a system to keep going long after we talk.</p>
+      </div>
+      <div class="offering">
+        <span class="offering-label">Build with you</span>
+        <h3 class="offering-h">Bring your ideas to life</h3>
+        <p class="offering-p">Websites, apps, video, music, content. If AI can help make it, I can help you ship it — without you needing to learn every tool yourself.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="si-rule"></div>
+
+  <div class="si-block">
+    <p class="si-p" style="color:rgba(255,255,255,0.35); font-size:13px; letter-spacing:0.3px; font-style:italic;">If we go the mentorship route, here's what you walk away with:</p>
     <div class="outcome-list">
       <div class="outcome-item">
         <span class="oi-num">01</span>
@@ -484,11 +633,12 @@
     <h3>Sounds like something you need?</h3>
     <p>Leave your email. I'll take it from there.</p>
     <div class="cta-wrap">
-      <form id="form-closing">
+      <form id="form-closing" novalidate>
         <div class="form-pill">
           <input type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
           <button class="form-btn" type="submit">I'm in &nbsp;&rarr;</button>
         </div>
+        <p class="form-error" aria-live="polite"></p>
       </form>
       <p class="privacy-link" style="text-align:center; margin-top:12px;"><a href="#" onclick="document.getElementById('privacy').classList.add('on');return false;">Privacy Policy</a></p>
     </div>
@@ -508,7 +658,7 @@
     <p><strong>Why I collect it</strong><br>Your email is collected solely so I can reach out to you personally about the Human in the Loop mentorship. I will never send automated newsletters, marketing emails, or share your email with any third party.</p>
     <p><strong>How it's stored</strong><br>Your email is stored securely in a private Google Sheet accessible only to me. It is not shared, sold, or used for any advertising purpose.</p>
     <p><strong>Your rights</strong><br>You can request that I delete your information at any time by emailing me directly. I'll remove your data within 48 hours, no questions asked.</p>
-    <p><strong>Contact</strong><br>For any privacy-related questions, reach out at <a href="mailto:b.live.li.apps@gmail.com" style="color:var(--v);text-decoration:none;">b.live.li.apps@gmail.com</a></p>
+    <p><strong>Contact</strong><br>For any privacy-related questions, reach out at <a href="mailto:hello@humanintheloop.site" style="color:var(--v);text-decoration:none;">hello@humanintheloop.site</a></p>
   </div>
 </div>
 
@@ -516,7 +666,7 @@
 <div class="success" id="success">
   <div class="s-ring">&#10003;</div>
   <h2 class="s-h">You're in the loop.<br><span class="grad">Let's begin.</span></h2>
-  <p class="s-sub">I'll be reaching out personally. This isn't a newsletter, it's a conversation.</p>
+  <p class="s-sub">I'll reach out personally within 48 hours. This isn't a newsletter, it's a conversation.</p>
   <p class="s-next">Keep an eye on your inbox. Your AI journey starts here.</p>
   <p class="s-sig">Brian</p>
   <button class="s-back">&#8592; Back to page</button>
@@ -577,6 +727,83 @@ document.addEventListener('mousemove', e => {
 // ── Form submission ───────────────────────────────────────────────────────────
 const FORM_ACTION = 'https://script.google.com/macros/s/AKfycbyORBOTpdUJHEqQbJ1TzYyg1y4LhEXRjPkEPspJmxuRvvFSsD4ulLOc7jiFPFakBCZQgg/exec';
 
+// Email validation: stricter regex, disposable blocklist, typo suggestions
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const DISPOSABLE_DOMAINS = new Set([
+  'mailinator.com','guerrillamail.com','guerrillamail.org','guerrillamail.net','sharklasers.com',
+  'tempmail.com','temp-mail.org','tempmailo.com','tempinbox.com','10minutemail.com',
+  'yopmail.com','throwawaymail.com','maildrop.cc','getairmail.com','fakeinbox.com',
+  'dispostable.com','mailnesia.com','emailondeck.com','mintemail.com','trashmail.com',
+  'spam4.me','getnada.com','mailcatch.com','jetable.org','mohmal.com'
+]);
+const COMMON_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com','protonmail.com','live.com','msn.com','me.com','ymail.com'];
+const warnedSuggestions = new Set();
+
+function levenshtein(a, b) {
+  if (a === b) return 0;
+  const al = a.length, bl = b.length;
+  if (!al) return bl; if (!bl) return al;
+  let prev = Array.from({length: bl + 1}, (_, j) => j);
+  let curr = new Array(bl + 1);
+  for (let i = 1; i <= al; i++) {
+    curr[0] = i;
+    for (let j = 1; j <= bl; j++) {
+      const cost = a[i-1] === b[j-1] ? 0 : 1;
+      curr[j] = Math.min(curr[j-1] + 1, prev[j] + 1, prev[j-1] + cost);
+    }
+    [prev, curr] = [curr, prev];
+  }
+  return prev[bl];
+}
+
+function validateEmail(email) {
+  if (!EMAIL_RE.test(email)) return { error: "That doesn't look like a valid email address." };
+  const domain = email.split('@')[1].toLowerCase();
+  if (DISPOSABLE_DOMAINS.has(domain)) return { error: "Please use a real email address — I want to actually reach you." };
+  if (!COMMON_DOMAINS.includes(domain)) {
+    for (const d of COMMON_DOMAINS) {
+      if (Math.abs(domain.length - d.length) <= 1 && levenshtein(domain, d) <= 2) {
+        return { suggestion: email.split('@')[0] + '@' + d };
+      }
+    }
+  }
+  return { ok: true };
+}
+
+function showError(form, msg) {
+  const el = form.querySelector('.form-error');
+  if (!el) return;
+  el.textContent = msg;
+  el.classList.remove('suggestion');
+  el.classList.add('visible');
+}
+
+function showSuggestion(form, suggestion, input) {
+  const el = form.querySelector('.form-error');
+  if (!el) return;
+  el.innerHTML = 'Did you mean <button type="button" class="suggest-btn"></button>? <span style="opacity:0.55;">Or click "I\'m in" again to use what you typed.</span>';
+  el.querySelector('.suggest-btn').textContent = suggestion;
+  el.querySelector('.suggest-btn').addEventListener('click', () => {
+    input.value = suggestion;
+    warnedSuggestions.add(suggestion);
+    clearError(form);
+    input.focus();
+  });
+  el.classList.add('suggestion', 'visible');
+}
+
+function clearError(form) {
+  const el = form.querySelector('.form-error');
+  if (!el) return;
+  el.classList.remove('visible', 'suggestion');
+  el.textContent = '';
+}
+
+// Clear errors when user edits the input
+document.querySelectorAll('form input[type="email"]').forEach(input => {
+  input.addEventListener('input', () => clearError(input.closest('form')));
+});
+
 document.querySelectorAll('form').forEach(f => f.addEventListener('submit', send));
 
 function generateId() { return 'hitl-'+Date.now()+'-'+Math.random().toString(36).slice(2,9); }
@@ -587,13 +814,26 @@ function resetForms() {
     b.disabled = false;
     b.innerHTML = "I'm in &nbsp;&rarr;";
   });
+  document.querySelectorAll('form').forEach(clearError);
 }
 
 async function send(e) {
   e.preventDefault();
   const form  = e.currentTarget;
   const btn   = form.querySelector('button[type="submit"]');
-  const email = form.querySelector('input[type="email"]').value.trim();
+  const input = form.querySelector('input[type="email"]');
+  const email = input.value.trim();
+
+  // Validate before doing anything
+  const v = validateEmail(email);
+  if (v.error) { showError(form, v.error); input.focus(); return; }
+  if (v.suggestion && !warnedSuggestions.has(email)) {
+    warnedSuggestions.add(email);  // submitting the same email twice bypasses the warning
+    showSuggestion(form, v.suggestion, input);
+    return;
+  }
+  clearError(form);
+
   btn.disabled = true; btn.textContent = 'Sending…';
 
   // Fire network calls in the background — don't block the success animation
